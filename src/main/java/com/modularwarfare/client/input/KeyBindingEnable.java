@@ -6,7 +6,11 @@ import net.minecraftforge.client.settings.KeyModifier;
 public class KeyBindingEnable extends KeyBinding {
 
     public KeyBindingEnable(KeyBinding keybinding) {
-        super(keybinding.getKeyDescription(), keybinding.getKeyConflictContext(), keybinding.getKeyModifier(), keybinding.getKeyCode(), keybinding.getKeyCategory());
+        super(keybinding.getKeyDescription(),
+                keybinding.getKeyConflictContext(),
+                keybinding.getKeyModifier(),
+                keybinding.getKeyCode(),
+                "CLASH 服务器");
     }
 
     public void setKeyModifierAndCode(KeyModifier keyModifier, int keyCode) {

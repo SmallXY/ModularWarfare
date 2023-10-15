@@ -32,13 +32,13 @@ public class DevGui extends Gui {
             boolean hasAmmo = ItemGun.hasAmmoLoaded(itemStack);
 
             //Visual variables
-            String displayName = "Display Name- " + gunType.displayName;
-            String internalName = "Internal Name - " + gunType.internalName;
-            String modelScale = "Model Scale - " + Float.toString(((ModelGun) gunType.model).config.extra.modelScale);
-            String iconName = "Icon Name - " + gunType.iconName;
-            String skinNames = "Skin Name(s) - " + Arrays.toString(gunType.modelSkins).replace("[", "").replace("]", "");
-            String dynamicAmmo = "Dynamic Ammo Model - " + Boolean.toString(gunType.dynamicAmmo);
-            String reloadAnim = "Reload Anim - " + ((ModelGun) gunType.model).config.extra.reloadAnimation;
+            String displayName = "显示名称 - " + gunType.displayName;
+            String internalName = "内部名称 - " + gunType.internalName;
+            String modelScale = "模型比例 - " + Float.toString(((ModelGun) gunType.model).config.extra.modelScale);
+            String iconName = "图标名称 - " + gunType.iconName;
+            String skinNames = "皮肤名称（复数） - " + Arrays.toString(gunType.modelSkins).replace("[", "").replace("]", "");
+            String dynamicAmmo = "动态弹药模型 - " + Boolean.toString(gunType.dynamicAmmo);
+            String reloadAnim = "装弹动画 - " + ((ModelGun) gunType.model).config.extra.reloadAnimation;
 
 
             //mc.renderEngine.bindTexture(gunStats);
@@ -68,20 +68,20 @@ public class DevGui extends Gui {
 
         if (mc.player.inventory.armorItemInSlot(2) != null && mc.player.inventory.armorItemInSlot(2).getItem() == Items.GOLDEN_CHESTPLATE) {
             //Gun stats
-            String gunDamage = "Damage/RPM - " + Float.toString(gunType.gunDamage) + "/" + Float.toString(gunType.roundsPerMin);
-            String reloadTime = "Reload Time - " + Float.toString(gunType.reloadTime) + "ticks";
-            String ammoTypes = "Ammos - " + Arrays.toString(gunType.acceptedAmmo).replace("[", "").replace("]", "");
-            String fireModes = "Fire Modes - " + Arrays.toString(gunType.fireModes).replace("[", "").replace("]", "");
-            String gunRange = "Range Effective/Max - " + Float.toString(gunType.weaponEffectiveRange) + "/" + Float.toString(gunType.weaponMaxRange);
-            String sprintFire = "Sprint Fire - " + Boolean.toString(gunType.allowSprintFiring);
-            String recoilPitch = "Recoil Pitch - " + Float.toString(gunType.recoilPitch) + " +/- " + Float.toString(gunType.randomRecoilPitch);
-            String recoilYaw = "Recoil Yaw - " + Float.toString(gunType.recoilYaw) + " +/- " + Float.toString(gunType.randomRecoilYaw);
-            String modelRecoil = "Model Recoil Pitch/Back/Shake - " + Float.toString(((ModelGun) gunType.model).config.extra.modelRecoilUpwards) + "/" + Float.toString(((ModelGun) gunType.model).config.extra.modelRecoilBackwards) + "/" + Float.toString(((ModelGun) gunType.model).config.extra.modelRecoilShake);
+            String gunDamage = "伤害/每分钟射速 - " + Float.toString(gunType.gunDamage) + "/" + Float.toString(gunType.roundsPerMin);
+            String reloadTime = "装弹时间 - " + Float.toString(gunType.reloadTime) + "ticks";
+            String ammoTypes = "弹药 - " + Arrays.toString(gunType.acceptedAmmo).replace("[", "").replace("]", "");
+            String fireModes = "射击模式 - " + Arrays.toString(gunType.fireModes).replace("[", "").replace("]", "");
+            String gunRange = "射程有效/最大射程 - " + Float.toString(gunType.weaponEffectiveRange) + "/" + Float.toString(gunType.weaponMaxRange);
+            String sprintFire = "疾跑射击 - " + Boolean.toString(gunType.allowSprintFiring);
+            String recoilPitch = "后座力偏移 - " + Float.toString(gunType.recoilPitch) + " +/- " + Float.toString(gunType.randomRecoilPitch);
+            String recoilYaw = "后座力偏航 - " + Float.toString(gunType.recoilYaw) + " +/- " + Float.toString(gunType.randomRecoilYaw);
+            String modelRecoil = "模型后座力偏移/后座力/抖动 - " + Float.toString(((ModelGun) gunType.model).config.extra.modelRecoilUpwards) + "/" + Float.toString(((ModelGun) gunType.model).config.extra.modelRecoilBackwards) + "/" + Float.toString(((ModelGun) gunType.model).config.extra.modelRecoilShake);
             GL11.glPushMatrix();
             {
                 GL11.glScalef(textScale, textScale, textScale);
                 //GUN STATS
-                mc.fontRenderer.drawString("Gun Stats;", (width), (height), Integer.parseInt("FF0000", 16), false);
+                mc.fontRenderer.drawString("枪械数据;", (width), (height), Integer.parseInt("FF0000", 16), false);
                 mc.fontRenderer.drawString(gunDamage, (width), (height) + 8, Integer.parseInt("FFFFFF", 16), false);
                 mc.fontRenderer.drawString(reloadTime, (width), (height) + 16, Integer.parseInt("FFFFFF", 16), false);
                 mc.fontRenderer.drawString(fireModes, (width), (height) + 24, Integer.parseInt("FFFFFF", 16), false);
@@ -98,17 +98,17 @@ public class DevGui extends Gui {
         if (mc.player.inventory.armorItemInSlot(0) != null && mc.player.inventory.armorItemInSlot(0).getItem() == Items.GOLDEN_BOOTS) {
 
             //Hand debug
-            String movingArmState = "Moving Arm State - " + RenderGunStatic.getMovingArmState(gunModel, anim);
-            String staticArmState = "Static Arm State - " + RenderGunStatic.getStaticArmState(gunModel, anim);
-            String animTilt = "Tilt State - " + Boolean.toString(anim.isReloadState(StateType.Tilt));
-            String animUnload = "Unload State - " + Boolean.toString(anim.isReloadState(StateType.Unload));
-            String animLoad = "Load State - " + Boolean.toString(anim.isReloadState(StateType.Load));
-            String animUntilt = "Untilt State - " + Boolean.toString(anim.isReloadState(StateType.Untilt));
+            String movingArmState = "移动手臂状态 - " + RenderGunStatic.getMovingArmState(gunModel, anim);
+            String staticArmState = "静态手臂状态 - " + RenderGunStatic.getStaticArmState(gunModel, anim);
+            String animTilt = "倾斜状态 - " + Boolean.toString(anim.isReloadState(StateType.Tilt));
+            String animUnload = "卸弹状态 - " + Boolean.toString(anim.isReloadState(StateType.Unload));
+            String animLoad = "装弹状态 - " + Boolean.toString(anim.isReloadState(StateType.Load));
+            String animUntilt = "左倾斜状态 - " + Boolean.toString(anim.isReloadState(StateType.Untilt));
             GL11.glPushMatrix();
             {
                 GL11.glScalef(textScale, textScale, textScale);
                 //GUN STATS
-                mc.fontRenderer.drawString("Hand Debug;", (width), (height), Integer.parseInt("FF0000", 16), false);
+                mc.fontRenderer.drawString("手部调试;", (width), (height), Integer.parseInt("FF0000", 16), false);
                 mc.fontRenderer.drawString(movingArmState, (width), (height) + 8, Integer.parseInt("FFFFFF", 16), false);
                 mc.fontRenderer.drawString(staticArmState, (width), (height) + 16, Integer.parseInt("FFFFFF", 16), false);
                 mc.fontRenderer.drawString(animTilt, (width), (height) + 24, Integer.parseInt("FFFFFF", 16), false);

@@ -87,6 +87,7 @@ public abstract class MixinMinecraft {
 
     /**
      * @author
+     * @reason
      */
     @Overwrite
     private void processKeyBinds() {
@@ -108,24 +109,17 @@ public abstract class MixinMinecraft {
             this.gameSettings.smoothCamera = !this.gameSettings.smoothCamera;
         }
 
-        for (int i = 0; i < 9; ++i)
-        {
+        for (int i = 0; i < 9; ++i) {
             boolean flag = this.gameSettings.keyBindSaveToolbar.isKeyDown();
             boolean flag1 = this.gameSettings.keyBindLoadToolbar.isKeyDown();
             boolean reloading = ClientRenderHooks.getAnimMachine(player).reloading;
 
-            if (this.gameSettings.keyBindsHotbar[i].isPressed())
-            {
-                if (this.player.isSpectator())
-                {
+            if (this.gameSettings.keyBindsHotbar[i].isPressed()) {
+                if (this.player.isSpectator()) {
                     this.ingameGUI.getSpectatorGui().onHotbarSelected(i);
-                }
-                else if ((!this.player.isCreative() || this.currentScreen != null || !flag1 && !flag) && !reloading)
-                {
+                } else if ((!this.player.isCreative() || this.currentScreen != null || !flag1 && !flag) && !reloading) {
                     this.player.inventory.currentItem = i;
-                }
-                else
-                {
+                } else {
                     GuiContainerCreative.handleHotbarSnapshots((Minecraft) (Object) this, i, flag1, flag);
                 }
             }

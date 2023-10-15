@@ -1,7 +1,6 @@
 package com.modularwarfare.client;
 
 import com.modularwarfare.ModConfig;
-import com.modularwarfare.ModularWarfare;
 import com.modularwarfare.api.AnimationUtils;
 import com.modularwarfare.api.RenderHandFisrtPersonEvent;
 import com.modularwarfare.client.fpp.basic.animations.AnimStateMachine;
@@ -280,8 +279,8 @@ public class ClientRenderHooks extends ForgeEvent {
                         } else{
                             
                             //客户端预测需要 必须是即时物品
-                            if (GunType.getAttachment(mc.player.getHeldItemMainhand(), AttachmentPresetEnum.Sight) != null) {
-                                final ItemAttachment itemAttachment = (ItemAttachment) GunType.getAttachment(mc.player.getHeldItemMainhand(), AttachmentPresetEnum.Sight).getItem();
+                            if (GunType.getAttachment(mc.player.getHeldItemMainhand(), AttachmentPresetEnum.视野) != null) {
+                                final ItemAttachment itemAttachment = (ItemAttachment) GunType.getAttachment(mc.player.getHeldItemMainhand(), AttachmentPresetEnum.视野).getItem();
                                 if(itemAttachment.type.sight.modeType.insideGunRendering) {
                                     renderInsideGun(stack, hand, partialTicksTime, fov);
                                     GL11.glDepthRange(0, ModConfig.INSTANCE.hud.handDepthRange);

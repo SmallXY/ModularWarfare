@@ -265,7 +265,7 @@ public class RenderGunStatic extends CustomItemRenderer {
                         ItemStack itemStack = GunType.getAttachment(item, attachment);
                         if (itemStack != null && itemStack.getItem() != Items.AIR) {
                             AttachmentType attachmentType = ((ItemAttachment) itemStack.getItem()).type;
-                            if (attachmentType.attachmentType == AttachmentPresetEnum.Sight) {
+                            if (attachmentType.attachmentType == AttachmentPresetEnum.视野) {
                                 if (model.config.attachments.aimPointMap != null) {
                                     for (String internalName : model.config.attachments.aimPointMap.keySet()) {
                                         if (internalName.equals(attachmentType.internalName)) {
@@ -365,9 +365,9 @@ public class RenderGunStatic extends CustomItemRenderer {
                     //Render Scope
                     WeaponScopeModeType modeType = gunType.scopeModeType;
 
-                    if (GunType.getAttachment(item, AttachmentPresetEnum.Sight) != null) {
-                        if (GunType.getAttachment(item, AttachmentPresetEnum.Sight).getItem() != null) {
-                            ItemAttachment attachmentSight = (ItemAttachment) GunType.getAttachment(item, AttachmentPresetEnum.Sight).getItem();
+                    if (GunType.getAttachment(item, AttachmentPresetEnum.视野) != null) {
+                        if (GunType.getAttachment(item, AttachmentPresetEnum.视野).getItem() != null) {
+                            ItemAttachment attachmentSight = (ItemAttachment) GunType.getAttachment(item, AttachmentPresetEnum.视野).getItem();
                             if (attachmentSight != null) {
                                 modeType = attachmentSight.type.sight.modeType;
                             }
@@ -432,7 +432,7 @@ public class RenderGunStatic extends CustomItemRenderer {
                         this.slowDiff = Math.max(this.slowDiff - 0.1f, wantedDiff);
                     }
 
-                    if (isLightOn && GunType.getAttachment(item, AttachmentPresetEnum.Flashlight) != null) {
+                    if (isLightOn && GunType.getAttachment(item, AttachmentPresetEnum.手电筒) != null) {
                         final float alpha = 0.25f + this.slowDiff * 0.05f;
                         GlStateManager.rotate(-90, 0,1,0);
 
@@ -519,11 +519,11 @@ public class RenderGunStatic extends CustomItemRenderer {
                 model.renderPart("gunModel", worldScale);
 
                 //Render any attachments
-                if (GunType.getAttachment(item, AttachmentPresetEnum.Sight) == null && !model.config.attachments.scopeIsOnSlide)
+                if (GunType.getAttachment(item, AttachmentPresetEnum.视野) == null && !model.config.attachments.scopeIsOnSlide)
                     model.renderPart("defaultScopeModel", worldScale);
 
                 //Render any attachments
-                if (GunType.getAttachment(item, AttachmentPresetEnum.Barrel) == null)
+                if (GunType.getAttachment(item, AttachmentPresetEnum.木桶) == null)
                     model.renderPart("defaultBarrelModel", worldScale);
 
                 model.renderPart("defaultStockModel", worldScale);
@@ -596,7 +596,7 @@ public class RenderGunStatic extends CustomItemRenderer {
 
 
                 //Render Slide
-                if (GunType.getAttachment(item, AttachmentPresetEnum.Slide) == null) {
+                if (GunType.getAttachment(item, AttachmentPresetEnum.滑行) == null) {
                     float currentCharge = currentReloadState.isPresent() ? (currentReloadState.get().stateType == StateType.Charge || currentReloadState.get().stateType == StateType.Uncharge) ? currentReloadState.get().currentValue : 1f : 1f;
                     float lastCharge = currentReloadState.isPresent() ? (currentReloadState.get().stateType == StateType.Charge || currentReloadState.get().stateType == StateType.Uncharge) ? currentReloadState.get().lastValue : 1f : 1f;
 
@@ -623,7 +623,7 @@ public class RenderGunStatic extends CustomItemRenderer {
                         model.renderPart("slideModel", worldScale);
                         GL11.glPopMatrix();
 
-                        if (GunType.getAttachment(item, AttachmentPresetEnum.Sight) == null && model.config.attachments.scopeIsOnSlide)
+                        if (GunType.getAttachment(item, AttachmentPresetEnum.视野) == null && model.config.attachments.scopeIsOnSlide)
                             model.renderPart("defaultScopeModel", worldScale);
 
                         //Render the scope on the slide, if its set on slide
@@ -631,7 +631,7 @@ public class RenderGunStatic extends CustomItemRenderer {
                             GL11.glPushMatrix();
                             {
                                 WeaponFireMode fireMode = GunType.getFireMode(item);
-                                float switchAngle = fireMode == WeaponFireMode.SEMI ? model.switchSemiRot : fireMode == WeaponFireMode.FULL ? model.switchAutoRot : fireMode == WeaponFireMode.BURST ? model.switchBurstRot : 0F;
+                                float switchAngle = fireMode == WeaponFireMode.半自动 ? model.switchSemiRot : fireMode == WeaponFireMode.全自动 ? model.switchAutoRot : fireMode == WeaponFireMode.爆发 ? model.switchBurstRot : 0F;
                                 GL11.glTranslatef(model.switchRotationPoint.x, model.switchRotationPoint.y, model.switchRotationPoint.z);
                                 GL11.glRotatef(switchAngle, 0, 0, 1);
                                 GL11.glTranslatef(-model.switchRotationPoint.x, -model.switchRotationPoint.y, -model.switchRotationPoint.z);
@@ -652,7 +652,7 @@ public class RenderGunStatic extends CustomItemRenderer {
                         GL11.glRotatef(breakProgress * -breakAction.angle, 0F, 0F, 1F);
                         GL11.glTranslatef(-breakAction.breakPoint.x, -breakAction.breakPoint.y, -breakAction.breakPoint.z);
                         model.renderPart(breakAction.modelName, worldScale);
-                        if (GunType.getAttachment(item, AttachmentPresetEnum.Sight) == null && model.config.breakAction.scopeIsOnBreakAction && breakAction.scopePart)
+                        if (GunType.getAttachment(item, AttachmentPresetEnum.视野) == null && model.config.breakAction.scopeIsOnBreakAction && breakAction.scopePart)
                             model.renderPart("defaultScopeModel", worldScale);
                     }
                     GL11.glPopMatrix();
@@ -708,7 +708,7 @@ public class RenderGunStatic extends CustomItemRenderer {
                     GL11.glPushMatrix();
                     {
                         WeaponFireMode fireMode = GunType.getFireMode(item);
-                        float switchAngle = fireMode == WeaponFireMode.SEMI ? model.switchSemiRot : fireMode == WeaponFireMode.FULL ? model.switchAutoRot : fireMode == WeaponFireMode.BURST ? model.switchBurstRot : 0F;
+                        float switchAngle = fireMode == WeaponFireMode.半自动 ? model.switchSemiRot : fireMode == WeaponFireMode.全自动 ? model.switchAutoRot : fireMode == WeaponFireMode.爆发 ? model.switchBurstRot : 0F;
                         GL11.glTranslatef(model.switchRotationPoint.x, model.switchRotationPoint.y, model.switchRotationPoint.z);
                         GL11.glRotatef(switchAngle, 0, 0, 1);
                         GL11.glTranslatef(-model.switchRotationPoint.x, -model.switchRotationPoint.y, -model.switchRotationPoint.z);
@@ -926,9 +926,9 @@ public class RenderGunStatic extends CustomItemRenderer {
 
                 boolean shouldRenderFlash = true;
 
-                if ((GunType.getAttachment(item, AttachmentPresetEnum.Barrel) != null)) {
-                    AttachmentType attachmentType = ((ItemAttachment) GunType.getAttachment(item, AttachmentPresetEnum.Barrel).getItem()).type;
-                    if (attachmentType.attachmentType == AttachmentPresetEnum.Barrel) {
+                if ((GunType.getAttachment(item, AttachmentPresetEnum.木桶) != null)) {
+                    AttachmentType attachmentType = ((ItemAttachment) GunType.getAttachment(item, AttachmentPresetEnum.木桶).getItem()).type;
+                    if (attachmentType.attachmentType == AttachmentPresetEnum.木桶) {
                         shouldRenderFlash = !attachmentType.barrel.hideFlash;
                     }
                 }
@@ -1025,7 +1025,7 @@ public class RenderGunStatic extends CustomItemRenderer {
                                         bindTexture("attachments", path);
                                     }
 
-                                    if (attachmentType.attachmentType == AttachmentPresetEnum.Sight && model.config.attachments.scopeIsOnSlide) {
+                                    if (attachmentType.attachmentType == AttachmentPresetEnum.视野 && model.config.attachments.scopeIsOnSlide) {
                                         float currentCharge = currentReloadState.isPresent() ? (currentReloadState.get().stateType == StateType.Charge || currentReloadState.get().stateType == StateType.Uncharge) ? currentReloadState.get().currentValue : 1f : 1f;
                                         float lastCharge = currentReloadState.isPresent() ? (currentReloadState.get().stateType == StateType.Charge || currentReloadState.get().stateType == StateType.Uncharge) ? currentReloadState.get().lastValue : 1f : 1f;
                                         if (!anim.isGunEmpty) {
@@ -1037,7 +1037,7 @@ public class RenderGunStatic extends CustomItemRenderer {
                                     }
 
                                     attachmentModel.renderAttachment(worldScale);
-                                    if (attachmentType.attachmentType == AttachmentPresetEnum.Sight && mc.gameSettings.thirdPersonView == 0 && renderType == CustomItemRenderType.EQUIPPED_FIRST_PERSON) {
+                                    if (attachmentType.attachmentType == AttachmentPresetEnum.视野 && mc.gameSettings.thirdPersonView == 0 && renderType == CustomItemRenderType.EQUIPPED_FIRST_PERSON) {
                                         boolean glowTxtureMode=ObjModelRenderer.glowTxtureMode;
                                         ObjModelRenderer.glowTxtureMode = false;
                                         renderScopeGlass(attachmentType, attachmentModel, adsSwitch != 0F);
@@ -1135,7 +1135,7 @@ public class RenderGunStatic extends CustomItemRenderer {
         Vector3f leftArmOffset = new Vector3f(0, 0, 0);
         if (player.getHeldItemMainhand() != null) {
             if (player.getHeldItemMainhand().getItem() instanceof ItemGun) {
-                ItemStack itemStack = GunType.getAttachment(player.getHeldItemMainhand(), AttachmentPresetEnum.Grip);
+                ItemStack itemStack = GunType.getAttachment(player.getHeldItemMainhand(), AttachmentPresetEnum.握持);
                 if (itemStack != null && itemStack.getItem() != Items.AIR) {
                     ItemAttachment itemAttachment = (ItemAttachment) itemStack.getItem();
                     leftArmOffset = ((ModelAttachment) itemAttachment.type.model).config.grip.leftArmOffset;
@@ -1406,7 +1406,7 @@ public class RenderGunStatic extends CustomItemRenderer {
         if (mc.player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND) != null && mc.gameSettings.thirdPersonView == 0) {
             if (mc.player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND).getItem() instanceof ItemGun) {
                 final ItemStack gunStack = mc.player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND);
-                if (GunType.getAttachment(gunStack, AttachmentPresetEnum.Flashlight) != null) {
+                if (GunType.getAttachment(gunStack, AttachmentPresetEnum.手电筒) != null) {
                     if (isLightOn) {
                         GL11.glDisable(2896);
                         Minecraft.getMinecraft().entityRenderer.disableLightmap();

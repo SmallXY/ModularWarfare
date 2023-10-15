@@ -5,14 +5,16 @@ import com.google.gson.annotations.SerializedName;
 
 public enum AttachmentPresetEnum {
 
-    @SerializedName("sight") Sight("sight"),
-    @SerializedName("slide") Slide("slide"),
-    @SerializedName("grip") Grip("grip"),
-    @SerializedName("flashlight") Flashlight("flashlight"),
-    @SerializedName("charm") Charm("charm"),
-    @SerializedName("skin") Skin("skin"),
-    @SerializedName("barrel") Barrel("barrel"),
-    @SerializedName("stock") Stock("stock");
+    @SerializedName("视野") 视野("视野"),
+    @SerializedName("滑行") 滑行("滑行"),
+    @SerializedName("握持") 握持("握持"),
+    @SerializedName("手电筒") 手电筒("手电筒"),
+    @SerializedName("魅力") 魅力("魅力"),
+    @SerializedName("皮肤") 皮肤("皮肤"),
+    @SerializedName("木桶") 木桶("木桶"),
+    @SerializedName("库存") 库存("库存");
+
+
 
     public String typeName;
 
@@ -26,7 +28,7 @@ public enum AttachmentPresetEnum {
                 return attachmentEnum;
             }
         }
-        return AttachmentPresetEnum.Sight;
+        return AttachmentPresetEnum.视野;
     }
 
     public String getName() {

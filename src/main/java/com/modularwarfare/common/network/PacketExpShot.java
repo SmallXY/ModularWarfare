@@ -1,6 +1,5 @@
 package com.modularwarfare.common.network;
 
-import com.modularwarfare.ModConfig;
 import com.modularwarfare.ModularWarfare;
 import com.modularwarfare.common.guns.*;
 import com.modularwarfare.common.handler.ServerTickHandler;
@@ -60,10 +59,10 @@ public class PacketExpShot extends PacketBase {
                             if (ModularWarfare.gunTypes.get(internalname) != null) {
                                 ItemGun itemGun = ModularWarfare.gunTypes.get(internalname);
                                 WeaponFireMode fireMode = itemGun.type.getFireMode(entityPlayer.getHeldItemMainhand());
-                                int shotCount = fireMode == WeaponFireMode.BURST ? entityPlayer.getHeldItemMainhand().getTagCompound().getInteger("shotsremaining") > 0 ? entityPlayer.getHeldItemMainhand().getTagCompound().getInteger("shotsremaining") : itemGun.type.numBurstRounds : 1;
+                                int shotCount = fireMode == WeaponFireMode.爆发 ? entityPlayer.getHeldItemMainhand().getTagCompound().getInteger("shotsremaining") > 0 ? entityPlayer.getHeldItemMainhand().getTagCompound().getInteger("shotsremaining") : itemGun.type.numBurstRounds : 1;
 
                                 // Burst Stuff
-                                if (fireMode == WeaponFireMode.BURST) {
+                                if (fireMode == WeaponFireMode.爆发) {
                                     shotCount = shotCount - 1;
                                     entityPlayer.getHeldItemMainhand().getTagCompound().setInteger("shotsremaining", shotCount);
                                 }
@@ -71,7 +70,7 @@ public class PacketExpShot extends PacketBase {
                                 itemGun.consumeShot(entityPlayer.getHeldItemMainhand());
 
                                 // Sound
-                                if (GunType.getAttachment(entityPlayer.getHeldItemMainhand(), AttachmentPresetEnum.Barrel) != null) {
+                                if (GunType.getAttachment(entityPlayer.getHeldItemMainhand(), AttachmentPresetEnum.木桶) != null) {
                                     itemGun.type.playSound(entityPlayer, WeaponSoundType.FireSuppressed, entityPlayer.getHeldItemMainhand(), entityPlayer);
                                 } else {
                                     itemGun.type.playSound(entityPlayer, WeaponSoundType.Fire, entityPlayer.getHeldItemMainhand(), entityPlayer);

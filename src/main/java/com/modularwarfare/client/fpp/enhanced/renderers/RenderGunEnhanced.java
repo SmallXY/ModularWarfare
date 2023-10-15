@@ -1,6 +1,5 @@
 package com.modularwarfare.client.fpp.enhanced.renderers;
 
-import com.modularmods.mcgltf.MCglTF;
 import com.modularwarfare.ModConfig;
 import com.modularwarfare.ModularWarfare;
 import com.modularwarfare.client.ClientProxy;
@@ -39,7 +38,6 @@ import com.modularwarfare.utility.maths.Interpolation;
 
 import de.javagl.jgltf.model.NodeModel;
 
-import com.modularmods.mcgltf.RenderedGltfModel;
 import mchhui.modularmovements.tactical.client.ClientLitener;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -48,7 +46,6 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
 import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -56,7 +53,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Timer;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -307,8 +303,8 @@ public class RenderGunEnhanced extends CustomItemRenderer {
          * ATTACHMENT AIM
          * */
         ItemAttachment sight = null;
-        if(GunType.getAttachment(item, AttachmentPresetEnum.Sight)!=null) {
-            sight = (ItemAttachment) GunType.getAttachment(item, AttachmentPresetEnum.Sight).getItem();
+        if(GunType.getAttachment(item, AttachmentPresetEnum.视野)!=null) {
+            sight = (ItemAttachment) GunType.getAttachment(item, AttachmentPresetEnum.视野).getItem();
             Attachment sightConfig=config.attachment.get(sight.type.internalName);
             if(sightConfig!=null) {
                 //System.out.println("test");
@@ -434,7 +430,7 @@ public class RenderGunEnhanced extends CustomItemRenderer {
                         binding = config.attachment.get(sightRendering.type.internalName).binding;
                     }
                     model.applyGlobalTransformToOther(binding, () -> {
-                        renderAttachment(config, AttachmentPresetEnum.Sight.typeName, sightRendering.type.internalName, () -> {
+                        renderAttachment(config, AttachmentPresetEnum.视野.typeName, sightRendering.type.internalName, () -> {
                             writeScopeGlassDepth(sightRendering.type, (ModelAttachment)sightRendering.type.model, controller.ADS > 0, worldScale, sightRendering.type.sight.modeType.isPIP);
                         });
                     });
@@ -473,11 +469,11 @@ public class RenderGunEnhanced extends CustomItemRenderer {
                  * selecotr
                  * */
                 WeaponFireMode fireMode = GunType.getFireMode(item);
-                if(fireMode==WeaponFireMode.SEMI) {
+                if(fireMode==WeaponFireMode.半自动) {
                     model.renderPart("selector_semi");
-                }else if(fireMode==WeaponFireMode.FULL) {
+                }else if(fireMode==WeaponFireMode.全自动) {
                     model.renderPart("selector_full");
-                }else if(fireMode==WeaponFireMode.BURST){
+                }else if(fireMode==WeaponFireMode.爆发){
                     model.renderPart("selector_brust");
                 }
                
@@ -710,7 +706,7 @@ public class RenderGunEnhanced extends CustomItemRenderer {
                         ModelAttachment attachmentModel = (ModelAttachment) attachmentType.model;
                         
                         if(ScopeUtils.isIndsideGunRendering) {
-                            if (attachment == AttachmentPresetEnum.Sight) {
+                            if (attachment == AttachmentPresetEnum.视野) {
                                 if (config.attachment.containsKey(attachmentType.internalName)) {
                                     if(!config.attachment.get(attachmentType.internalName).renderInsideSightModel) {
                                         continue;
@@ -742,14 +738,14 @@ public class RenderGunEnhanced extends CustomItemRenderer {
                                 }
                                 renderAttachment(config, attachment.typeName, attachmentType.internalName, () -> {
                                     attachmentModel.renderAttachment(worldScale);
-                                    if(attachment==AttachmentPresetEnum.Sight) {
+                                    if(attachment==AttachmentPresetEnum.视野) {
                                         renderScopeGlass(attachmentType, attachmentModel, controller.ADS > 0, worldScale);
                                     }
                                 });
                             });
                         }
                         
-                        if (attachment == AttachmentPresetEnum.Sight) {
+                        if (attachment == AttachmentPresetEnum.视野) {
                             WeaponScopeModeType modeType = attachmentType.sight.modeType;
                             if (modeType.isMirror) {
                                 if (controller.ADS == 1) {
@@ -788,9 +784,9 @@ public class RenderGunEnhanced extends CustomItemRenderer {
                  *  flashmodel 
                  *  */
                 boolean shouldRenderFlash=true;
-                if ((GunType.getAttachment(item, AttachmentPresetEnum.Barrel) != null)) {
-                    AttachmentType attachmentType = ((ItemAttachment) GunType.getAttachment(item, AttachmentPresetEnum.Barrel).getItem()).type;
-                    if (attachmentType.attachmentType == AttachmentPresetEnum.Barrel) {
+                if ((GunType.getAttachment(item, AttachmentPresetEnum.木桶) != null)) {
+                    AttachmentType attachmentType = ((ItemAttachment) GunType.getAttachment(item, AttachmentPresetEnum.木桶).getItem()).type;
+                    if (attachmentType.attachmentType == AttachmentPresetEnum.木桶) {
                         shouldRenderFlash = !attachmentType.barrel.hideFlash;
                     }
                 }
@@ -1117,7 +1113,7 @@ public class RenderGunEnhanced extends CustomItemRenderer {
         if (mc.player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND) != null && mc.gameSettings.thirdPersonView == 0) {
             if (mc.player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND).getItem() instanceof ItemGun) {
                 final ItemStack gunStack = mc.player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND);
-                if (GunType.getAttachment(gunStack, AttachmentPresetEnum.Flashlight) != null) {
+                if (GunType.getAttachment(gunStack, AttachmentPresetEnum.手电筒) != null) {
                     if (isLightOn) {
                         GL11.glDisable(2896);
                         Minecraft.getMinecraft().entityRenderer.disableLightmap();

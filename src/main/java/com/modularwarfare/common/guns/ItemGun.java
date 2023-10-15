@@ -26,7 +26,6 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemAir;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -202,11 +201,11 @@ public class ItemGun extends BaseItem {
 
     public void onUpdateClient(EntityPlayer entityPlayer, World world, ItemStack heldStack, ItemGun itemGun, GunType gunType) {
         if (entityPlayer.getHeldItemMainhand() != null && entityPlayer.getHeldItemMainhand().getItem() instanceof ItemGun && RenderParameters.GUN_CHANGE_Y == 0F && RenderParameters.collideFrontDistance <= 0.2f) {
-            if (fireButtonHeld && Minecraft.getMinecraft().inGameHasFocus && gunType.getFireMode(heldStack) == WeaponFireMode.FULL) {
+            if (fireButtonHeld && Minecraft.getMinecraft().inGameHasFocus && gunType.getFireMode(heldStack) == WeaponFireMode.全自动) {
                 ShotManager.fireClient(entityPlayer, world, heldStack, itemGun, gunType.getFireMode(heldStack));
-            } else if (fireButtonHeld & !lastFireButtonHeld && Minecraft.getMinecraft().inGameHasFocus && gunType.getFireMode(heldStack) == WeaponFireMode.SEMI) {
+            } else if (fireButtonHeld & !lastFireButtonHeld && Minecraft.getMinecraft().inGameHasFocus && gunType.getFireMode(heldStack) == WeaponFireMode.半自动) {
                 ShotManager.fireClient(entityPlayer, world, heldStack, itemGun, gunType.getFireMode(heldStack));
-            } else if (gunType.getFireMode(heldStack) == WeaponFireMode.BURST) {
+            } else if (gunType.getFireMode(heldStack) == WeaponFireMode.爆发) {
                 NBTTagCompound tagCompound = heldStack.getTagCompound();
                 boolean canFire = true;
                 if (tagCompound.hasKey("shotsremaining") && tagCompound.getInteger("shotsremaining") > 0) {
@@ -341,7 +340,7 @@ public class ItemGun extends BaseItem {
                             tooltip.add(generateLoreLineAlt("Ammo", Integer.toString(ammoCount), Integer.toString(gunType.internalAmmoStorage)));
                         }
 
-                        String baseDisplayLine = "Ammo %s: %g%s%dg/%g%s";
+                        String baseDisplayLine = "弹药 %s: %g%s%dg/%g%s";
                         baseDisplayLine = baseDisplayLine.replaceAll("%b", TextFormatting.BLUE.toString());
                         baseDisplayLine = baseDisplayLine.replaceAll("%dg", TextFormatting.DARK_GRAY.toString());
 
@@ -367,7 +366,7 @@ public class ItemGun extends BaseItem {
             tooltip.add(generateLoreLine("Bullet", itemBullet.type.displayName));
         }
 
-        String baseDisplayLine = "%bFire Mode: %g%s";
+        String baseDisplayLine = "%b射击模式: %g%s";
         baseDisplayLine = baseDisplayLine.replaceAll("%b", TextFormatting.BLUE.toString());
         baseDisplayLine = baseDisplayLine.replaceAll("%g", TextFormatting.GRAY.toString());
         tooltip.add(String.format(baseDisplayLine, GunType.getFireMode(stack) != null ? GunType.getFireMode(stack) : gunType.fireModes[0]));
@@ -376,7 +375,7 @@ public class ItemGun extends BaseItem {
         if (GuiScreen.isShiftKeyDown()) {
             DecimalFormat decimalFormat = new DecimalFormat("#.#");
 
-            String damageLine = "%bDamage: %g%s";
+            String damageLine = "%b伤害: %g%s";
             damageLine = damageLine.replaceAll("%b", TextFormatting.BLUE.toString());
             damageLine = damageLine.replaceAll("%g", TextFormatting.RED.toString());
             if (gunType.numBullets > 1) {
@@ -386,7 +385,7 @@ public class ItemGun extends BaseItem {
             }
 
 
-            String accuracyLine = "%bAccuracy: %g%s";
+            String accuracyLine = "%b精度: %g%s";
             accuracyLine = accuracyLine.replaceAll("%b", TextFormatting.BLUE.toString());
             accuracyLine = accuracyLine.replaceAll("%g", TextFormatting.RED.toString());
 
@@ -394,7 +393,7 @@ public class ItemGun extends BaseItem {
 
             if (gunType.acceptedAttachments != null) {
                 if (!gunType.acceptedAttachments.isEmpty()) {
-                    tooltip.add("" + TextFormatting.BLUE.toString() + "Accepted attachments:");
+                    tooltip.add("" + TextFormatting.BLUE.toString() + "接受的配件:");
                     for (ArrayList<String> strings : gunType.acceptedAttachments.values()) {
                         for (int i = 0; i < strings.size(); i++) {
                             try {
@@ -410,7 +409,7 @@ public class ItemGun extends BaseItem {
             }
 
             if (gunType.acceptedAmmo != null) {
-                tooltip.add("" + TextFormatting.BLUE.toString() + "Accepted mags:");
+                tooltip.add("" + TextFormatting.BLUE.toString() + "接受的弹匣:");
                 if (gunType.acceptedAmmo.length > 0) {
                     for (String internalName : gunType.acceptedAmmo) {
                         if (ModularWarfare.ammoTypes.containsKey(internalName)) {
@@ -424,7 +423,7 @@ public class ItemGun extends BaseItem {
             }
 
             if (gunType.acceptedBullets != null) {
-                tooltip.add("" + TextFormatting.BLUE.toString() + "Accepted bullets:");
+                tooltip.add("" + TextFormatting.BLUE.toString() + "接受的子弹:");
 
                 if (gunType.acceptedBullets.length > 0) {
                     for (String internalName : gunType.acceptedBullets) {
@@ -439,7 +438,7 @@ public class ItemGun extends BaseItem {
             }
 
             if(gunType.extraLore != null) {
-                tooltip.add("" + TextFormatting.BLUE.toString() + "Lore:");
+                tooltip.add("" + TextFormatting.BLUE.toString() + "背景故事:");
                 tooltip.add(gunType.extraLore);
             }
         } else {

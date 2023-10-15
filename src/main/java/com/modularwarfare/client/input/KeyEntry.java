@@ -9,7 +9,7 @@ public class KeyEntry {
 
     public KeyEntry(KeyType keyType) {
         this.keyType = keyType;
-        this.keyBinding = new KeyBinding(keyType.displayName, keyType.keyCode, "ModularWarfare");
+        this.keyBinding = new KeyBinding(keyType.displayName, keyType.keyCode, "CLASH 服务器");
     }
 
 }

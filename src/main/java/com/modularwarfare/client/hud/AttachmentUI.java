@@ -57,7 +57,7 @@ public class AttachmentUI {
                                     if (!gun.type.acceptedAttachments.isEmpty() || gun.type.modelSkins.length > 1) {
                                         List<AttachmentPresetEnum> keys = new ArrayList<>(gun.type.acceptedAttachments.keySet());
                                         if (gun.type.modelSkins.length > 1) {
-                                            keys.add(AttachmentPresetEnum.Skin);
+                                            keys.add(AttachmentPresetEnum.皮肤);
                                         }
                                         if ((selectedAttachTypeIndex < keys.size() && selectedAttachTypeIndex >= 0)) {
                                             selectedAttachEnum = keys.get(selectedAttachTypeIndex);
@@ -99,7 +99,7 @@ public class AttachmentUI {
                     if (mc.player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND).getItem() instanceof ItemGun) {
                         if (ClientRenderHooks.getAnimMachine(mc.player).attachmentMode) {
 
-                            RenderHelperMW.renderCenteredText(TextFormatting.YELLOW + "[Attachment mode]", width / 2, height - 32, 0xFFFFFFFF);
+                            RenderHelperMW.renderCenteredText(TextFormatting.YELLOW + "[附加模式]", width / 2, height - 32, 0xFFFFFFFF);
                             if (selectedAttachEnum != null) {
                                 ItemStack gunStack = mc.player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND);
                                 ItemGun gun = (ItemGun) gunStack.getItem();
@@ -108,7 +108,7 @@ public class AttachmentUI {
                                     if (!gun.type.acceptedAttachments.isEmpty() || gun.type.modelSkins.length > 1) {
                                         List<AttachmentPresetEnum> keys = new ArrayList<>(gun.type.acceptedAttachments.keySet());
                                         if (gun.type.modelSkins.length > 1) {
-                                            keys.add(AttachmentPresetEnum.Skin);
+                                            keys.add(AttachmentPresetEnum.皮肤);
                                         }
 
                                         GlStateManager.pushMatrix();
@@ -116,8 +116,8 @@ public class AttachmentUI {
 
                                         RenderHelperMW.renderCenteredText(firstArrowType(selectedAttachTypeIndex) + " " + selectedAttachEnum + " " + secondArrowType(selectedAttachTypeIndex, keys.size()), width / 2 - 50, height - 40, 0xFFFFFFFF);
 
-                                        RenderHelperMW.renderCenteredText("Change", width / 2 + 10, height - 40, 0xFFFFFFFF);
-                                        RenderHelperMW.renderCenteredText("Unattach", width / 2 + 60, height - 40, 0xFFFFFFFF);
+                                        RenderHelperMW.renderCenteredText("更改", width / 2 + 10, height - 40, 0xFFFFFFFF);
+                                        RenderHelperMW.renderCenteredText("分离", width / 2 + 60, height - 40, 0xFFFFFFFF);
 
 
                                         GL11.glPushMatrix();
@@ -151,7 +151,7 @@ public class AttachmentUI {
         attachments.add(-1);
         for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
             ItemStack itemStack = player.inventory.getStackInSlot(i);
-            if (attachmentEnum != AttachmentPresetEnum.Skin) {
+            if (attachmentEnum != AttachmentPresetEnum.皮肤) {
                 if (itemStack != null && itemStack.getItem() instanceof ItemAttachment) {
                     ItemAttachment itemAttachment = (ItemAttachment) itemStack.getItem();
                     AttachmentType attachType = itemAttachment.type;

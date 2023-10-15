@@ -2,13 +2,11 @@ package com.modularwarfare.client.scope;
 
 
 import com.google.gson.JsonSyntaxException;
-import com.modularmods.mcgltf.MCglTF;
 import com.modularwarfare.ModConfig;
 import com.modularwarfare.ModularWarfare;
 import com.modularwarfare.client.ClientProxy;
 import com.modularwarfare.client.ClientRenderHooks;
 import com.modularwarfare.client.fpp.basic.configs.AttachmentRenderConfig.Sight;
-import com.modularwarfare.client.fpp.enhanced.AnimationType;
 import com.modularwarfare.client.model.ModelAttachment;
 import com.modularwarfare.client.fpp.basic.renderers.RenderParameters;
 import com.modularwarfare.client.fpp.enhanced.renderers.RenderGunEnhanced;
@@ -32,7 +30,6 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
@@ -110,8 +107,8 @@ public class ScopeUtils {
             if (mc.player != null && mc.currentScreen == null) {
                 //If player has gun, update scope
                 if (mc.player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND) != null && mc.player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND).getItem() instanceof ItemGun && mc.gameSettings.thirdPersonView == 0) {
-                    if (GunType.getAttachment(mc.player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND), AttachmentPresetEnum.Sight) != null) {
-                        final ItemAttachment itemAttachment = (ItemAttachment) GunType.getAttachment(mc.player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND), AttachmentPresetEnum.Sight).getItem();
+                    if (GunType.getAttachment(mc.player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND), AttachmentPresetEnum.视野) != null) {
+                        final ItemAttachment itemAttachment = (ItemAttachment) GunType.getAttachment(mc.player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND), AttachmentPresetEnum.视野).getItem();
                         if (itemAttachment != null) {
                             if (itemAttachment.type != null) {
                                 if (itemAttachment.type.sight.modeType.isMirror) {
@@ -202,9 +199,9 @@ public class ScopeUtils {
         boolean skip=true;
         if (mc.player.getHeldItemMainhand() != null && mc.player.getHeldItemMainhand().getItem() instanceof ItemGun
                 && RenderParameters.adsSwitch != 0 && mc.gameSettings.thirdPersonView == 0) {
-            if (GunType.getAttachment(mc.player.getHeldItemMainhand(), AttachmentPresetEnum.Sight) != null) {
+            if (GunType.getAttachment(mc.player.getHeldItemMainhand(), AttachmentPresetEnum.视野) != null) {
                 final ItemAttachment itemAttachment = (ItemAttachment) GunType
-                        .getAttachment(mc.player.getHeldItemMainhand(), AttachmentPresetEnum.Sight).getItem();
+                        .getAttachment(mc.player.getHeldItemMainhand(), AttachmentPresetEnum.视野).getItem();
                 if (itemAttachment != null) {
                     if (itemAttachment.type != null) {
                         skip=false;
@@ -261,8 +258,8 @@ public class ScopeUtils {
     @SubscribeEvent
     public void onFovMod(FOVModifier event) {
         if (mc.player.getHeldItemMainhand() != null && mc.player.getHeldItemMainhand().getItem() instanceof ItemGun && RenderParameters.adsSwitch != 0 && mc.gameSettings.thirdPersonView == 0) {
-            if (GunType.getAttachment(mc.player.getHeldItemMainhand(), AttachmentPresetEnum.Sight) != null) {
-                final ItemAttachment itemAttachment = (ItemAttachment) GunType.getAttachment(mc.player.getHeldItemMainhand(), AttachmentPresetEnum.Sight).getItem();
+            if (GunType.getAttachment(mc.player.getHeldItemMainhand(), AttachmentPresetEnum.视野) != null) {
+                final ItemAttachment itemAttachment = (ItemAttachment) GunType.getAttachment(mc.player.getHeldItemMainhand(), AttachmentPresetEnum.视野).getItem();
                 if (itemAttachment != null) {
                     if (itemAttachment.type != null) {
                             if(!itemAttachment.type.sight.modeType.isPIP) {
@@ -290,8 +287,8 @@ public class ScopeUtils {
         }
         ItemStack stack=Minecraft.getMinecraft().player.getHeldItemMainhand();
         if (stack != null && stack.getItem() instanceof ItemGun) {
-            if (GunType.getAttachment(mc.player.getHeldItemMainhand(), AttachmentPresetEnum.Sight) != null) {
-                final ItemAttachment itemAttachment = (ItemAttachment) GunType.getAttachment(mc.player.getHeldItemMainhand(), AttachmentPresetEnum.Sight).getItem();
+            if (GunType.getAttachment(mc.player.getHeldItemMainhand(), AttachmentPresetEnum.视野) != null) {
+                final ItemAttachment itemAttachment = (ItemAttachment) GunType.getAttachment(mc.player.getHeldItemMainhand(), AttachmentPresetEnum.视野).getItem();
                 if(itemAttachment.type.sight.modeType.isPIP) {
                     renderPostScope(event.getPartialTicks(),false,true,true, 1 );
                     GlStateManager.enableDepth();
@@ -308,8 +305,8 @@ public class ScopeUtils {
             ScaledResolution resolution = new ScaledResolution(mc);
             ItemAttachment attachment=null;
             
-            if (GunType.getAttachment(mc.player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND), AttachmentPresetEnum.Sight) != null) {
-                attachment = (ItemAttachment) GunType.getAttachment(mc.player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND), AttachmentPresetEnum.Sight).getItem();
+            if (GunType.getAttachment(mc.player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND), AttachmentPresetEnum.视野) != null) {
+                attachment = (ItemAttachment) GunType.getAttachment(mc.player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND), AttachmentPresetEnum.视野).getItem();
             }
             
             if(attachment==null||attachment==Items.AIR) {
@@ -554,8 +551,8 @@ public class ScopeUtils {
             case START:
                 if (ClientRenderHooks.isAimingScope) {
                     if (mc.player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND) != null && mc.player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND).getItem() instanceof ItemGun && RenderParameters.adsSwitch != 0 && mc.gameSettings.thirdPersonView == 0) {
-                        if (GunType.getAttachment(mc.player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND), AttachmentPresetEnum.Sight) != null) {
-                            final ItemAttachment itemAttachment = (ItemAttachment) GunType.getAttachment(mc.player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND), AttachmentPresetEnum.Sight).getItem();
+                        if (GunType.getAttachment(mc.player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND), AttachmentPresetEnum.视野) != null) {
+                            final ItemAttachment itemAttachment = (ItemAttachment) GunType.getAttachment(mc.player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND), AttachmentPresetEnum.视野).getItem();
                             if (itemAttachment != null) {
                                 if (itemAttachment.type != null) {
                                     mc.gameSettings.mouseSensitivity = mouseSensitivityBackup * ((ModelAttachment) itemAttachment.type.model).config.sight.mouseSensitivityFactor;

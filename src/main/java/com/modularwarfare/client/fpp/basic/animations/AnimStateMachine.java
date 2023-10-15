@@ -110,13 +110,10 @@ public class AnimStateMachine {
         if (reloading) {
             disableSprinting(true);
             Minecraft.getMinecraft().player.setSprinting(false);
-            if (currentReloadState == null)
-                currentReloadState = reloadStateEntries.get(0);
+            if (currentReloadState == null) currentReloadState = reloadStateEntries.get(0);
 
-            if (currentReloadState.stateType == StateType.Tilt)
-                tiltHold = true;
-            if (currentReloadState.stateType == StateType.Untilt)
-                tiltHold = false;
+            if (currentReloadState.stateType == StateType.Tilt) tiltHold = true;
+            if (currentReloadState.stateType == StateType.Untilt) tiltHold = false;
 
             if (reloadProgress >= currentReloadState.cutOffTime) {
                 if (reloadStateIndex + 1 < reloadStateEntries.size()) {
@@ -148,7 +145,7 @@ public class AnimStateMachine {
         }
 
 
-        if(gun != null) {
+        if (gun != null) {
             if (!gun.type.allowAimingSprint && adsSwitch > 0.2f) {
                 Minecraft.getMinecraft().player.setSprinting(false);
             }
@@ -156,8 +153,7 @@ public class AnimStateMachine {
 
 
         if (shooting) {
-            if (currentShootState == null)
-                currentShootState = shootStateEntries.get(0);
+            if (currentShootState == null) currentShootState = shootStateEntries.get(0);
 
             if (shootProgress >= currentShootState.cutOffTime) {
                 if (shootStateIndex + 1 < shootStateEntries.size()) {
@@ -182,24 +178,20 @@ public class AnimStateMachine {
 
         // Slide staticModel
         lastGunSlide = gunSlide;
-        if (isGunEmpty)
-            lastGunSlide = gunSlide = 0.5F;
+        if (isGunEmpty) lastGunSlide = gunSlide = 0.5F;
         if (!isGunEmpty && gunSlide > 0.9) // Add one extra frame to slide
             gunSlide -= 0.1F;
-        else if (gunSlide > 0 && !isGunEmpty)
-            gunSlide *= 0.5F;
+        else if (gunSlide > 0 && !isGunEmpty) gunSlide *= 0.5F;
 
 
         // Recoil
         lastGunRecoil = gunRecoil;
-        if (gunRecoil > 0)
-            gunRecoil *= 0.5F;
+        if (gunRecoil > 0) gunRecoil *= 0.5F;
 
         // Time until hammer pullback
         if (isFired) {
             gunPullback += 2F / 4;
-            if (gunPullback >= 0.999F)
-                isFired = false;
+            if (gunPullback >= 0.999F) isFired = false;
         }
 
         if (timeUntilPullback > 0) {
@@ -213,16 +205,13 @@ public class AnimStateMachine {
             hammerRotation *= 0.6F;
         }
 
-        if (muzzleFlashTime > 0)
-            muzzleFlashTime--;
+        if (muzzleFlashTime > 0) muzzleFlashTime--;
     }
 
     public void onRenderTickUpdate() {
-        if (reloading && currentReloadState != null)
-            currentReloadState.onTick(reloadTime);
+        if (reloading && currentReloadState != null) currentReloadState.onTick(reloadTime);
 
-        if (shooting && currentShootState != null)
-            currentShootState.onTick(shootTime);
+        if (shooting && currentShootState != null) currentShootState.onTick(shootTime);
     }
 
     public void triggerShoot(ModelGun model, GunType gunType, int fireTickDelay) {
@@ -241,7 +230,7 @@ public class AnimStateMachine {
         muzzleFlashTime = 2;
 
         int Low = 0;
-        int High = gunType.flashType.resourceLocations.size()-1;
+        int High = gunType.flashType.resourceLocations.size() - 1;
         int result = r.nextInt(High - Low) + Low;
         flashInt = result;
 
@@ -308,9 +297,9 @@ public class AnimStateMachine {
         }
         return true;
     }
-    
+
     public boolean canSprint() {
-        return !shooting&&!reloading;
+        return !shooting && !reloading;
     }
 
     public boolean isReloadType(ReloadType type) {
@@ -324,8 +313,7 @@ public class AnimStateMachine {
         float cutOffTime = 0f;
         for (StateEntry entry : animEntries)
             currentTiming += entry.stateTime;
-        if (currentTiming < 1f)
-            dividedAmount = (1f - currentTiming) / animEntries.size();
+        if (currentTiming < 1f) dividedAmount = (1f - currentTiming) / animEntries.size();
         if (dividedAmount > 0f) {
             for (StateEntry entry : animEntries) {
                 entry.stateTime += dividedAmount;
@@ -341,8 +329,7 @@ public class AnimStateMachine {
     private Optional<StateEntry> getState(StateType stateType) {
         StateEntry stateEntry = null;
 
-        if (reloadStateEntries == null)
-            return Optional.ofNullable(stateEntry);
+        if (reloadStateEntries == null) return Optional.ofNullable(stateEntry);
 
         for (StateEntry entry : reloadStateEntries) {
             if (entry.stateType == stateType) {

@@ -141,7 +141,7 @@ public class ItemAmmo extends BaseItem {
             tooltip.add(generateLoreLineAlt("Ammo", Integer.toString(currentAmmoCount), Integer.toString(type.ammoCapacity)));
         } else {
             if (ammoStack.getTagCompound() != null) {
-                String baseDisplayLine = "%bMag Ammo %s: %g%s%dg/%g%s";
+                String baseDisplayLine = "%b弹匣弹药 %s: %g%s%dg/%g%s";
                 baseDisplayLine = baseDisplayLine.replaceAll("%b", TextFormatting.BLUE.toString());
                 baseDisplayLine = baseDisplayLine.replaceAll("%g", TextFormatting.GRAY.toString());
                 baseDisplayLine = baseDisplayLine.replaceAll("%dg", TextFormatting.DARK_GRAY.toString());
@@ -154,14 +154,14 @@ public class ItemAmmo extends BaseItem {
         }
 
         if (ammoStack.getTagCompound() != null) {
-            if (ammoStack.getTagCompound().hasKey("bullet")) {
+            if (ammoStack.getTagCompound().hasKey("子弹")) {
                 ItemStack usedBullet = new ItemStack(ammoStack.getTagCompound().getCompoundTag("bullet"));
                 ItemBullet usedBulletItem = (ItemBullet) usedBullet.getItem();
                 tooltip.add(generateLoreLine("Bullet", usedBulletItem.type.displayName));
             }
         }
 
-        tooltip.add("" + TextFormatting.BLUE.toString() + "Accepted bullets:");
+        tooltip.add("" + TextFormatting.BLUE.toString() + "可接受的子弹:");
         if (((ItemAmmo) ammoStack.getItem()).type.subAmmo != null) {
             if (((ItemAmmo) ammoStack.getItem()).type.subAmmo.length > 0) {
                 for (String internalName : ((ItemAmmo) ammoStack.getItem()).type.subAmmo) {
@@ -174,7 +174,7 @@ public class ItemAmmo extends BaseItem {
                 }
             }
         }
-        tooltip.add("\u00a7e" + "[R] to reload");
+        tooltip.add("\u00a7e" + "[R]键重新装弹");
     }
 
     @Override

@@ -21,8 +21,6 @@ import com.modularwarfare.common.hitbox.hits.OBBHit;
 import com.modularwarfare.common.hitbox.hits.PlayerHit;
 import com.modularwarfare.common.hitbox.maths.EnumHitboxType;
 import com.modularwarfare.common.network.*;
-import com.modularwarfare.utility.MWSound;
-import com.modularwarfare.utility.ModularDamageSource;
 import com.modularwarfare.utility.RayUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -58,7 +56,7 @@ public class ShotManager {
             return;
         }
 
-        int shotCount = fireMode == WeaponFireMode.BURST ? gunStack.getTagCompound().getInteger("shotsremaining") > 0 ? gunStack.getTagCompound().getInteger("shotsremaining") : gunType.numBurstRounds : 1;
+        int shotCount = fireMode == WeaponFireMode.爆发 ? gunStack.getTagCompound().getInteger("shotsremaining") > 0 ? gunStack.getTagCompound().getInteger("shotsremaining") : gunType.numBurstRounds : 1;
 
         // Weapon pre fire event
         WeaponFireEvent.PreClient preFireEvent = new WeaponFireEvent.PreClient(entityPlayer, gunStack, itemGun, gunType.weaponMaxRange);
@@ -68,7 +66,7 @@ public class ShotManager {
 
         if (preFireEvent.getResult() == Event.Result.DEFAULT || preFireEvent.getResult() == Event.Result.ALLOW) {
             if (!ItemGun.hasNextShot(gunStack)) {
-                if (fireMode == WeaponFireMode.BURST) gunStack.getTagCompound().setInteger("shotsremaining", 0);
+                if (fireMode == WeaponFireMode.爆发) gunStack.getTagCompound().setInteger("shotsremaining", 0);
                 if(defemptyclickLock) {
                     //((ClientProxy)ModularWarfare.PROXY).playSound(new MWSound(entityPlayer.getPosition(), "defemptyclick", 1.0f, 1.0f));
                     gunType.playClientSound(entityPlayer, WeaponSoundType.DryFire);
@@ -82,8 +80,8 @@ public class ShotManager {
         ModularWarfare.PROXY.onShootAnimation(entityPlayer, gunType.internalName, gunType.fireTickDelay, itemGun.type.recoilPitch, itemGun.type.recoilYaw);
 
         // Sound
-        if (GunType.getAttachment(gunStack, AttachmentPresetEnum.Barrel) != null) {
-            ItemAttachment barrelAttachment = (ItemAttachment) GunType.getAttachment(gunStack, AttachmentPresetEnum.Barrel).getItem();
+        if (GunType.getAttachment(gunStack, AttachmentPresetEnum.木桶) != null) {
+            ItemAttachment barrelAttachment = (ItemAttachment) GunType.getAttachment(gunStack, AttachmentPresetEnum.木桶).getItem();
             if (barrelAttachment.type.barrel.isSuppressor) {
                 gunType.playClientSound(entityPlayer, WeaponSoundType.FireSuppressed);
             } else {
@@ -101,7 +99,7 @@ public class ShotManager {
         }
 
         // Burst Stuff
-        if (fireMode == WeaponFireMode.BURST) {
+        if (fireMode == WeaponFireMode.爆发) {
             shotCount = shotCount - 1;
             gunStack.getTagCompound().setInteger("shotsremaining", shotCount);
         }
@@ -173,7 +171,7 @@ public class ShotManager {
             MinecraftForge.EVENT_BUS.post(preFireEvent);
             if (preFireEvent.isCanceled())
                 return;
-            int shotCount = fireMode == WeaponFireMode.BURST ? gunStack.getTagCompound().getInteger("shotsremaining") > 0 ? gunStack.getTagCompound().getInteger("shotsremaining") : gunType.numBurstRounds : 1;
+            int shotCount = fireMode == WeaponFireMode.爆发 ? gunStack.getTagCompound().getInteger("shotsremaining") > 0 ? gunStack.getTagCompound().getInteger("shotsremaining") : gunType.numBurstRounds : 1;
 
             if (preFireEvent.getResult() == Event.Result.DEFAULT || preFireEvent.getResult() == Event.Result.ALLOW) {
                 if (!ItemGun.hasNextShot(gunStack)) {
@@ -181,13 +179,13 @@ public class ShotManager {
                         gunType.playSound(entityPlayer, WeaponSoundType.DryFire, gunStack);
                         ItemGun.canDryFire = false;
                     }
-                    if (fireMode == WeaponFireMode.BURST) gunStack.getTagCompound().setInteger("shotsremaining", 0);
+                    if (fireMode == WeaponFireMode.爆发) gunStack.getTagCompound().setInteger("shotsremaining", 0);
                     return;
                 }
             }
 
             // Sound
-            if (GunType.getAttachment(gunStack, AttachmentPresetEnum.Barrel) != null) {
+            if (GunType.getAttachment(gunStack, AttachmentPresetEnum.木桶) != null) {
                 gunType.playSound(entityPlayer, WeaponSoundType.FireSuppressed, gunStack, entityPlayer);
             } else if (GunType.isPackAPunched(gunStack)) {
                 gunType.playSound(entityPlayer, WeaponSoundType.Punched, gunStack, entityPlayer);
@@ -333,7 +331,7 @@ public class ShotManager {
             }
 
             // Burst Stuff
-            if (fireMode == WeaponFireMode.BURST) {
+            if (fireMode == WeaponFireMode.爆发) {
                 shotCount = shotCount - 1;
                 gunStack.getTagCompound().setInteger("shotsremaining", shotCount);
             }

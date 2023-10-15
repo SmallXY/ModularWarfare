@@ -8,17 +8,20 @@ public enum WeaponFireMode {
     /**
      * SemiAutomatic fire mode
      */
-    @SerializedName("semi") SEMI,
+    @SerializedName("半自动")
+    半自动,
 
     /**
      * Fully automatic fire mode
      */
-    @SerializedName("full") FULL,
+    @SerializedName("全自动")
+    全自动,
 
     /**
      * Burst of shots fire mode
      */
-    @SerializedName("burst") BURST;
+    @SerializedName("爆发")
+    爆发;
 
     public static WeaponFireMode fromString(String modeName) {
         for (WeaponFireMode fireMode : values()) {

@@ -27,8 +27,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -88,8 +86,8 @@ public class GunUI {
                         if (mc.getRenderViewEntity().equals(mc.player) && mc.gameSettings.thirdPersonView == 0 && (ClientRenderHooks.isAimingScope||ClientRenderHooks.isAiming) && RenderParameters.collideFrontDistance <= 0.025f) {
                             if (mc.player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND).getItem() instanceof ItemGun) {
                                 final ItemStack gunStack = mc.player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND);
-                                if (GunType.getAttachment(gunStack, AttachmentPresetEnum.Sight) != null) {
-                                    final ItemAttachment itemAttachment = (ItemAttachment) GunType.getAttachment(gunStack, AttachmentPresetEnum.Sight).getItem();
+                                if (GunType.getAttachment(gunStack, AttachmentPresetEnum.视野) != null) {
+                                    final ItemAttachment itemAttachment = (ItemAttachment) GunType.getAttachment(gunStack, AttachmentPresetEnum.视野).getItem();
                                     if (itemAttachment != null) {
                                         if (itemAttachment.type.sight.modeType != null) {
 

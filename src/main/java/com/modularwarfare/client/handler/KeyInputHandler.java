@@ -1,6 +1,5 @@
 package com.modularwarfare.client.handler;
 
-import com.modularwarfare.ModConfig;
 import com.modularwarfare.ModularWarfare;
 import com.modularwarfare.api.HandleKeyEvent;
 import com.modularwarfare.client.ClientProxy;
@@ -31,8 +30,8 @@ import java.util.ArrayList;
 
 public class KeyInputHandler extends ForgeEvent {
 
-    private ArrayList<KeyEntry> keyBinds;
-
+    private final ArrayList<KeyEntry> keyBinds;
+//ClientRegistry.registerKeyBinding(new KeyBinding("key.yourmod.jump",KeyConflictContext.IN_GAME, KeyModifier.NONE, InputMappings.Type.KEYSYM.getOrMakeInput(GLFW.GLFW_KEY_SPACE), "category.yourmod.movement"));
     public KeyInputHandler() {
         keyBinds = new ArrayList<KeyEntry>();
         keyBinds.add(new KeyEntry(KeyType.GunReload));
@@ -166,8 +165,8 @@ public class KeyInputHandler extends ForgeEvent {
                     if (entityPlayer.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND) != null && Minecraft.getMinecraft().gameSettings.thirdPersonView == 0) {
                         if (entityPlayer.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND).getItem() instanceof ItemGun) {
                             final ItemStack gunStack = entityPlayer.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND);
-                            if (GunType.getAttachment(gunStack, AttachmentPresetEnum.Flashlight) != null) {
-                                final ItemAttachment itemAttachment = (ItemAttachment) GunType.getAttachment(gunStack, AttachmentPresetEnum.Flashlight).getItem();
+                            if (GunType.getAttachment(gunStack, AttachmentPresetEnum.手电筒) != null) {
+                                final ItemAttachment itemAttachment = (ItemAttachment) GunType.getAttachment(gunStack, AttachmentPresetEnum.手电筒).getItem();
                                 if (itemAttachment != null) {
                                     RenderGunStatic.isLightOn = !RenderGunStatic.isLightOn;
                                 }

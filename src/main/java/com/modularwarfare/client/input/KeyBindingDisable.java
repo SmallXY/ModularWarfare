@@ -8,7 +8,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class KeyBindingDisable extends KeyBinding {
 
     public KeyBindingDisable(KeyBinding keybinding) {
-        super(keybinding.getKeyDescription(), keybinding.getKeyConflictContext(), keybinding.getKeyModifier(), keybinding.getKeyCode(), keybinding.getKeyCategory());
+        super(keybinding.getKeyDescription(),
+                keybinding.getKeyConflictContext(),
+                keybinding.getKeyModifier(),
+                keybinding.getKeyCode(),
+                "CLASH 服务器");
     }
 
     public boolean isKeyDown() {

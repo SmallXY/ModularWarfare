@@ -103,13 +103,12 @@ public class RayUtil {
 
     @Nullable
     @SideOnly(Side.CLIENT)
-    public static RayTraceResult rayTrace(Entity entity, double blockReachDistance, float partialTicks)
-    {
+    public static RayTraceResult rayTrace(Entity entity, double blockReachDistance, float partialTicks) {
         Vec3d vec3d = entity.getPositionEyes(partialTicks);
         Vec3d vec3d1 = entity.getLook(partialTicks);
         Vec3d vec3d2 = vec3d.addVector(vec3d1.x * blockReachDistance, vec3d1.y * blockReachDistance, vec3d1.z * blockReachDistance);
 
-        if(ModularWarfare.isLoadedModularMovements) {
+        if (ModularWarfare.isLoadedModularMovements) {
             if (entity instanceof EntityPlayer) {
                 vec3d = ModularMovementsHooks.onGetPositionEyes((EntityPlayer) entity, partialTicks);
             }
@@ -163,7 +162,7 @@ public class RayUtil {
         double dy = dir.y * range;
         double dz = dir.z * range;
 
-        if(side.isServer()) {
+        if (side.isServer()) {
             ModularWarfare.NETWORK.sendToDimension(new PacketGunTrail(player.posX, player.getEntityBoundingBox().minY + player.getEyeHeight() - 0.10000000149011612, player.posZ, player.motionX, player.motionZ, dir.x, dir.y, dir.z, range, 10, isPunched), player.world.provider.getDimension());
         } else {
             ModularWarfare.NETWORK.sendToServer(new PacketGunTrailAskServer(player.posX, player.getEntityBoundingBox().minY + player.getEyeHeight() - 0.10000000149011612, player.posZ, player.motionX, player.motionZ, dir.x, dir.y, dir.z, range, 10, isPunched));
@@ -176,7 +175,7 @@ public class RayUtil {
         }
 
         Vec3d offsetVec = player.getPositionEyes(1.0f);
-        if(Loader.isModLoaded("modularmovements")) {
+        if (Loader.isModLoaded("modularmovements")) {
             if (player instanceof EntityPlayer) {
                 offsetVec = ModularMovementsHooks.onGetPositionEyes((EntityPlayer) player, 1.0f);
             }

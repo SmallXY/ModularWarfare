@@ -31,9 +31,10 @@ public abstract class MixinInventoryPlayer {
 
     /**
      * @author
+     * @reason
      */
-    @Overwrite
     @SideOnly(Side.CLIENT)
+    @Overwrite
     public void changeCurrentItem(int direction) {
         if(ClientRenderHooks.getAnimMachine(player).reloading){
             return;

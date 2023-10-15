@@ -155,7 +155,7 @@ public class RenderItemLoot extends Render<EntityItemLoot> {
                         if (itemStack != null && itemStack.getItem() != Items.AIR) {
                             AttachmentType attachmentType = ((ItemAttachment) itemStack.getItem()).type;
                             ModelAttachment attachmentModel = (ModelAttachment) attachmentType.model;
-                            if (attachmentType.attachmentType == AttachmentPresetEnum.Sight)
+                            if (attachmentType.attachmentType == AttachmentPresetEnum.视野)
                                 hasScopeAttachment = true;
                             if (attachmentModel != null) {
 
