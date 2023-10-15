@@ -80,8 +80,8 @@ public class ShotManager {
         ModularWarfare.PROXY.onShootAnimation(entityPlayer, gunType.internalName, gunType.fireTickDelay, itemGun.type.recoilPitch, itemGun.type.recoilYaw);
 
         // Sound
-        if (GunType.getAttachment(gunStack, AttachmentPresetEnum.木桶) != null) {
-            ItemAttachment barrelAttachment = (ItemAttachment) GunType.getAttachment(gunStack, AttachmentPresetEnum.木桶).getItem();
+        if (GunType.getAttachment(gunStack, AttachmentPresetEnum.枪管) != null) {
+            ItemAttachment barrelAttachment = (ItemAttachment) GunType.getAttachment(gunStack, AttachmentPresetEnum.枪管).getItem();
             if (barrelAttachment.type.barrel.isSuppressor) {
                 gunType.playClientSound(entityPlayer, WeaponSoundType.FireSuppressed);
             } else {
@@ -185,7 +185,7 @@ public class ShotManager {
             }
 
             // Sound
-            if (GunType.getAttachment(gunStack, AttachmentPresetEnum.木桶) != null) {
+            if (GunType.getAttachment(gunStack, AttachmentPresetEnum.枪管) != null) {
                 gunType.playSound(entityPlayer, WeaponSoundType.FireSuppressed, gunStack, entityPlayer);
             } else if (GunType.isPackAPunched(gunStack)) {
                 gunType.playSound(entityPlayer, WeaponSoundType.Punched, gunStack, entityPlayer);

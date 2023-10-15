@@ -279,8 +279,8 @@ public class ClientRenderHooks extends ForgeEvent {
                         } else{
                             
                             //客户端预测需要 必须是即时物品
-                            if (GunType.getAttachment(mc.player.getHeldItemMainhand(), AttachmentPresetEnum.视野) != null) {
-                                final ItemAttachment itemAttachment = (ItemAttachment) GunType.getAttachment(mc.player.getHeldItemMainhand(), AttachmentPresetEnum.视野).getItem();
+                            if (GunType.getAttachment(mc.player.getHeldItemMainhand(), AttachmentPresetEnum.倍镜) != null) {
+                                final ItemAttachment itemAttachment = (ItemAttachment) GunType.getAttachment(mc.player.getHeldItemMainhand(), AttachmentPresetEnum.倍镜).getItem();
                                 if(itemAttachment.type.sight.modeType.insideGunRendering) {
                                     renderInsideGun(stack, hand, partialTicksTime, fov);
                                     GL11.glDepthRange(0, ModConfig.INSTANCE.hud.handDepthRange);

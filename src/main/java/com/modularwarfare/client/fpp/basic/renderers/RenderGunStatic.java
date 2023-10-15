@@ -265,7 +265,7 @@ public class RenderGunStatic extends CustomItemRenderer {
                         ItemStack itemStack = GunType.getAttachment(item, attachment);
                         if (itemStack != null && itemStack.getItem() != Items.AIR) {
                             AttachmentType attachmentType = ((ItemAttachment) itemStack.getItem()).type;
-                            if (attachmentType.attachmentType == AttachmentPresetEnum.视野) {
+                            if (attachmentType.attachmentType == AttachmentPresetEnum.倍镜) {
                                 if (model.config.attachments.aimPointMap != null) {
                                     for (String internalName : model.config.attachments.aimPointMap.keySet()) {
                                         if (internalName.equals(attachmentType.internalName)) {
@@ -365,9 +365,9 @@ public class RenderGunStatic extends CustomItemRenderer {
                     //Render Scope
                     WeaponScopeModeType modeType = gunType.scopeModeType;
 
-                    if (GunType.getAttachment(item, AttachmentPresetEnum.视野) != null) {
-                        if (GunType.getAttachment(item, AttachmentPresetEnum.视野).getItem() != null) {
-                            ItemAttachment attachmentSight = (ItemAttachment) GunType.getAttachment(item, AttachmentPresetEnum.视野).getItem();
+                    if (GunType.getAttachment(item, AttachmentPresetEnum.倍镜) != null) {
+                        if (GunType.getAttachment(item, AttachmentPresetEnum.倍镜).getItem() != null) {
+                            ItemAttachment attachmentSight = (ItemAttachment) GunType.getAttachment(item, AttachmentPresetEnum.倍镜).getItem();
                             if (attachmentSight != null) {
                                 modeType = attachmentSight.type.sight.modeType;
                             }
@@ -519,11 +519,11 @@ public class RenderGunStatic extends CustomItemRenderer {
                 model.renderPart("gunModel", worldScale);
 
                 //Render any attachments
-                if (GunType.getAttachment(item, AttachmentPresetEnum.视野) == null && !model.config.attachments.scopeIsOnSlide)
+                if (GunType.getAttachment(item, AttachmentPresetEnum.倍镜) == null && !model.config.attachments.scopeIsOnSlide)
                     model.renderPart("defaultScopeModel", worldScale);
 
                 //Render any attachments
-                if (GunType.getAttachment(item, AttachmentPresetEnum.木桶) == null)
+                if (GunType.getAttachment(item, AttachmentPresetEnum.枪管) == null)
                     model.renderPart("defaultBarrelModel", worldScale);
 
                 model.renderPart("defaultStockModel", worldScale);
@@ -596,7 +596,7 @@ public class RenderGunStatic extends CustomItemRenderer {
 
 
                 //Render Slide
-                if (GunType.getAttachment(item, AttachmentPresetEnum.滑行) == null) {
+                if (GunType.getAttachment(item, AttachmentPresetEnum.滑动装置) == null) {
                     float currentCharge = currentReloadState.isPresent() ? (currentReloadState.get().stateType == StateType.Charge || currentReloadState.get().stateType == StateType.Uncharge) ? currentReloadState.get().currentValue : 1f : 1f;
                     float lastCharge = currentReloadState.isPresent() ? (currentReloadState.get().stateType == StateType.Charge || currentReloadState.get().stateType == StateType.Uncharge) ? currentReloadState.get().lastValue : 1f : 1f;
 
@@ -623,7 +623,7 @@ public class RenderGunStatic extends CustomItemRenderer {
                         model.renderPart("slideModel", worldScale);
                         GL11.glPopMatrix();
 
-                        if (GunType.getAttachment(item, AttachmentPresetEnum.视野) == null && model.config.attachments.scopeIsOnSlide)
+                        if (GunType.getAttachment(item, AttachmentPresetEnum.倍镜) == null && model.config.attachments.scopeIsOnSlide)
                             model.renderPart("defaultScopeModel", worldScale);
 
                         //Render the scope on the slide, if its set on slide
@@ -652,7 +652,7 @@ public class RenderGunStatic extends CustomItemRenderer {
                         GL11.glRotatef(breakProgress * -breakAction.angle, 0F, 0F, 1F);
                         GL11.glTranslatef(-breakAction.breakPoint.x, -breakAction.breakPoint.y, -breakAction.breakPoint.z);
                         model.renderPart(breakAction.modelName, worldScale);
-                        if (GunType.getAttachment(item, AttachmentPresetEnum.视野) == null && model.config.breakAction.scopeIsOnBreakAction && breakAction.scopePart)
+                        if (GunType.getAttachment(item, AttachmentPresetEnum.倍镜) == null && model.config.breakAction.scopeIsOnBreakAction && breakAction.scopePart)
                             model.renderPart("defaultScopeModel", worldScale);
                     }
                     GL11.glPopMatrix();
@@ -926,9 +926,9 @@ public class RenderGunStatic extends CustomItemRenderer {
 
                 boolean shouldRenderFlash = true;
 
-                if ((GunType.getAttachment(item, AttachmentPresetEnum.木桶) != null)) {
-                    AttachmentType attachmentType = ((ItemAttachment) GunType.getAttachment(item, AttachmentPresetEnum.木桶).getItem()).type;
-                    if (attachmentType.attachmentType == AttachmentPresetEnum.木桶) {
+                if ((GunType.getAttachment(item, AttachmentPresetEnum.枪管) != null)) {
+                    AttachmentType attachmentType = ((ItemAttachment) GunType.getAttachment(item, AttachmentPresetEnum.枪管).getItem()).type;
+                    if (attachmentType.attachmentType == AttachmentPresetEnum.枪管) {
                         shouldRenderFlash = !attachmentType.barrel.hideFlash;
                     }
                 }
@@ -1025,7 +1025,7 @@ public class RenderGunStatic extends CustomItemRenderer {
                                         bindTexture("attachments", path);
                                     }
 
-                                    if (attachmentType.attachmentType == AttachmentPresetEnum.视野 && model.config.attachments.scopeIsOnSlide) {
+                                    if (attachmentType.attachmentType == AttachmentPresetEnum.倍镜 && model.config.attachments.scopeIsOnSlide) {
                                         float currentCharge = currentReloadState.isPresent() ? (currentReloadState.get().stateType == StateType.Charge || currentReloadState.get().stateType == StateType.Uncharge) ? currentReloadState.get().currentValue : 1f : 1f;
                                         float lastCharge = currentReloadState.isPresent() ? (currentReloadState.get().stateType == StateType.Charge || currentReloadState.get().stateType == StateType.Uncharge) ? currentReloadState.get().lastValue : 1f : 1f;
                                         if (!anim.isGunEmpty) {
@@ -1037,7 +1037,7 @@ public class RenderGunStatic extends CustomItemRenderer {
                                     }
 
                                     attachmentModel.renderAttachment(worldScale);
-                                    if (attachmentType.attachmentType == AttachmentPresetEnum.视野 && mc.gameSettings.thirdPersonView == 0 && renderType == CustomItemRenderType.EQUIPPED_FIRST_PERSON) {
+                                    if (attachmentType.attachmentType == AttachmentPresetEnum.倍镜 && mc.gameSettings.thirdPersonView == 0 && renderType == CustomItemRenderType.EQUIPPED_FIRST_PERSON) {
                                         boolean glowTxtureMode=ObjModelRenderer.glowTxtureMode;
                                         ObjModelRenderer.glowTxtureMode = false;
                                         renderScopeGlass(attachmentType, attachmentModel, adsSwitch != 0F);
@@ -1135,7 +1135,7 @@ public class RenderGunStatic extends CustomItemRenderer {
         Vector3f leftArmOffset = new Vector3f(0, 0, 0);
         if (player.getHeldItemMainhand() != null) {
             if (player.getHeldItemMainhand().getItem() instanceof ItemGun) {
-                ItemStack itemStack = GunType.getAttachment(player.getHeldItemMainhand(), AttachmentPresetEnum.握持);
+                ItemStack itemStack = GunType.getAttachment(player.getHeldItemMainhand(), AttachmentPresetEnum.握柄);
                 if (itemStack != null && itemStack.getItem() != Items.AIR) {
                     ItemAttachment itemAttachment = (ItemAttachment) itemStack.getItem();
                     leftArmOffset = ((ModelAttachment) itemAttachment.type.model).config.grip.leftArmOffset;

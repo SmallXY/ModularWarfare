@@ -303,8 +303,8 @@ public class RenderGunEnhanced extends CustomItemRenderer {
          * ATTACHMENT AIM
          * */
         ItemAttachment sight = null;
-        if(GunType.getAttachment(item, AttachmentPresetEnum.视野)!=null) {
-            sight = (ItemAttachment) GunType.getAttachment(item, AttachmentPresetEnum.视野).getItem();
+        if(GunType.getAttachment(item, AttachmentPresetEnum.倍镜)!=null) {
+            sight = (ItemAttachment) GunType.getAttachment(item, AttachmentPresetEnum.倍镜).getItem();
             Attachment sightConfig=config.attachment.get(sight.type.internalName);
             if(sightConfig!=null) {
                 //System.out.println("test");
@@ -430,7 +430,7 @@ public class RenderGunEnhanced extends CustomItemRenderer {
                         binding = config.attachment.get(sightRendering.type.internalName).binding;
                     }
                     model.applyGlobalTransformToOther(binding, () -> {
-                        renderAttachment(config, AttachmentPresetEnum.视野.typeName, sightRendering.type.internalName, () -> {
+                        renderAttachment(config, AttachmentPresetEnum.倍镜.typeName, sightRendering.type.internalName, () -> {
                             writeScopeGlassDepth(sightRendering.type, (ModelAttachment)sightRendering.type.model, controller.ADS > 0, worldScale, sightRendering.type.sight.modeType.isPIP);
                         });
                     });
@@ -706,7 +706,7 @@ public class RenderGunEnhanced extends CustomItemRenderer {
                         ModelAttachment attachmentModel = (ModelAttachment) attachmentType.model;
                         
                         if(ScopeUtils.isIndsideGunRendering) {
-                            if (attachment == AttachmentPresetEnum.视野) {
+                            if (attachment == AttachmentPresetEnum.倍镜) {
                                 if (config.attachment.containsKey(attachmentType.internalName)) {
                                     if(!config.attachment.get(attachmentType.internalName).renderInsideSightModel) {
                                         continue;
@@ -738,14 +738,14 @@ public class RenderGunEnhanced extends CustomItemRenderer {
                                 }
                                 renderAttachment(config, attachment.typeName, attachmentType.internalName, () -> {
                                     attachmentModel.renderAttachment(worldScale);
-                                    if(attachment==AttachmentPresetEnum.视野) {
+                                    if(attachment==AttachmentPresetEnum.倍镜) {
                                         renderScopeGlass(attachmentType, attachmentModel, controller.ADS > 0, worldScale);
                                     }
                                 });
                             });
                         }
                         
-                        if (attachment == AttachmentPresetEnum.视野) {
+                        if (attachment == AttachmentPresetEnum.倍镜) {
                             WeaponScopeModeType modeType = attachmentType.sight.modeType;
                             if (modeType.isMirror) {
                                 if (controller.ADS == 1) {
@@ -784,9 +784,9 @@ public class RenderGunEnhanced extends CustomItemRenderer {
                  *  flashmodel 
                  *  */
                 boolean shouldRenderFlash=true;
-                if ((GunType.getAttachment(item, AttachmentPresetEnum.木桶) != null)) {
-                    AttachmentType attachmentType = ((ItemAttachment) GunType.getAttachment(item, AttachmentPresetEnum.木桶).getItem()).type;
-                    if (attachmentType.attachmentType == AttachmentPresetEnum.木桶) {
+                if ((GunType.getAttachment(item, AttachmentPresetEnum.枪管) != null)) {
+                    AttachmentType attachmentType = ((ItemAttachment) GunType.getAttachment(item, AttachmentPresetEnum.枪管).getItem()).type;
+                    if (attachmentType.attachmentType == AttachmentPresetEnum.枪管) {
                         shouldRenderFlash = !attachmentType.barrel.hideFlash;
                     }
                 }

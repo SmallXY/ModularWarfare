@@ -86,8 +86,8 @@ public class GunUI {
                         if (mc.getRenderViewEntity().equals(mc.player) && mc.gameSettings.thirdPersonView == 0 && (ClientRenderHooks.isAimingScope||ClientRenderHooks.isAiming) && RenderParameters.collideFrontDistance <= 0.025f) {
                             if (mc.player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND).getItem() instanceof ItemGun) {
                                 final ItemStack gunStack = mc.player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND);
-                                if (GunType.getAttachment(gunStack, AttachmentPresetEnum.视野) != null) {
-                                    final ItemAttachment itemAttachment = (ItemAttachment) GunType.getAttachment(gunStack, AttachmentPresetEnum.视野).getItem();
+                                if (GunType.getAttachment(gunStack, AttachmentPresetEnum.倍镜) != null) {
+                                    final ItemAttachment itemAttachment = (ItemAttachment) GunType.getAttachment(gunStack, AttachmentPresetEnum.倍镜).getItem();
                                     if (itemAttachment != null) {
                                         if (itemAttachment.type.sight.modeType != null) {
 

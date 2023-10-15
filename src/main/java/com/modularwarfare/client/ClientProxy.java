@@ -763,14 +763,14 @@ public class ClientProxy extends CommonProxy {
             float recoilPitchBarrelFactor = 1.0f;
             float recoilYawBarrelFactor = 1.0f;
 
-            if (GunType.getAttachment(player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND), AttachmentPresetEnum.握持) != null) {
-                ItemAttachment gripAttachment = (ItemAttachment) GunType.getAttachment(player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND), AttachmentPresetEnum.握持).getItem();
+            if (GunType.getAttachment(player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND), AttachmentPresetEnum.握柄) != null) {
+                ItemAttachment gripAttachment = (ItemAttachment) GunType.getAttachment(player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND), AttachmentPresetEnum.握柄).getItem();
                 recoilPitchGripFactor = gripAttachment.type.grip.recoilPitchFactor;
                 recoilYawGripFactor = gripAttachment.type.grip.recoilYawFactor;
             }
 
-            if (GunType.getAttachment(player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND), AttachmentPresetEnum.木桶) != null) {
-                ItemAttachment barrelAttachment = (ItemAttachment) GunType.getAttachment(player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND), AttachmentPresetEnum.木桶).getItem();
+            if (GunType.getAttachment(player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND), AttachmentPresetEnum.枪管) != null) {
+                ItemAttachment barrelAttachment = (ItemAttachment) GunType.getAttachment(player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND), AttachmentPresetEnum.枪管).getItem();
                 recoilPitchBarrelFactor = barrelAttachment.type.barrel.recoilPitchFactor;
                 recoilYawBarrelFactor = barrelAttachment.type.barrel.recoilYawFactor;
             }

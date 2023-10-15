@@ -70,7 +70,7 @@ public class PacketExpShot extends PacketBase {
                                 itemGun.consumeShot(entityPlayer.getHeldItemMainhand());
 
                                 // Sound
-                                if (GunType.getAttachment(entityPlayer.getHeldItemMainhand(), AttachmentPresetEnum.木桶) != null) {
+                                if (GunType.getAttachment(entityPlayer.getHeldItemMainhand(), AttachmentPresetEnum.枪管) != null) {
                                     itemGun.type.playSound(entityPlayer, WeaponSoundType.FireSuppressed, entityPlayer.getHeldItemMainhand(), entityPlayer);
                                 } else {
                                     itemGun.type.playSound(entityPlayer, WeaponSoundType.Fire, entityPlayer.getHeldItemMainhand(), entityPlayer);
